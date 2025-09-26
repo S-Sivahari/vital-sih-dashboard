@@ -1,0 +1,163 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "leaflet/dist/leaflet.css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Natural, human-made color palette inspired by real agricultural environments */
+  --background: #fefefe; /* Clean white background */
+  --foreground: #2d3748; /* Dark charcoal for better readability */
+  --card: #ffffff; /* Pure white cards with subtle shadows */
+  --card-foreground: #2d3748;
+  --popover: #ffffff;
+  --popover-foreground: #2d3748;
+  --primary: #4a7c59; /* Natural forest green from logo */
+  --primary-foreground: #ffffff;
+  --secondary: #f7fafc; /* Light gray for secondary elements */
+  --secondary-foreground: #2d3748;
+  --muted: #f7fafc; /* Subtle background for muted elements */
+  --muted-foreground: #718096; /* Medium gray for secondary text */
+  --accent: #ed8936; /* Warm orange from logo sun */
+  --accent-foreground: #ffffff;
+  --destructive: #e53e3e; /* Clear red for errors */
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0; /* Light gray borders */
+  --input: #ffffff;
+  --ring: #4a7c59;
+  --chart-1: #4a7c59; /* Forest green */
+  --chart-2: #ed8936; /* Warm orange */
+  --chart-3: #8b4513; /* Earth brown */
+  --chart-4: #4299e1; /* Sky blue */
+  --chart-5: #38b2ac; /* Teal */
+  --radius: 8px; /* Slightly smaller radius for more professional look */
+  --sidebar: #f8fffe; /* Very light green tint */
+  --sidebar-foreground: #2d3748;
+  --sidebar-primary: #4a7c59;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f7fafc;
+  --sidebar-accent-foreground: #2d3748;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #4a7c59;
+}
+
+.dark {
+  /* Natural dark mode with warmer tones */
+  --background: #1a202c;
+  --foreground: #f7fafc;
+  --card: #2d3748;
+  --card-foreground: #f7fafc;
+  --popover: #2d3748;
+  --popover-foreground: #f7fafc;
+  --primary: #68d391;
+  --primary-foreground: #1a202c;
+  --secondary: #4a5568;
+  --secondary-foreground: #f7fafc;
+  --muted: #4a5568;
+  --muted-foreground: #a0aec0;
+  --accent: #f6ad55;
+  --accent-foreground: #1a202c;
+  --destructive: #fc8181;
+  --destructive-foreground: #1a202c;
+  --border: #4a5568;
+  --input: #2d3748;
+  --ring: #68d391;
+  --chart-1: #68d391;
+  --chart-2: #f6ad55;
+  --chart-3: #d69e2e;
+  --chart-4: #63b3ed;
+  --chart-5: #4fd1c7;
+  --sidebar: #2d3748;
+  --sidebar-foreground: #f7fafc;
+  --sidebar-primary: #68d391;
+  --sidebar-primary-foreground: #1a202c;
+  --sidebar-accent: #4a5568;
+  --sidebar-accent-foreground: #f7fafc;
+  --sidebar-border: #4a5568;
+  --sidebar-ring: #68d391;
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Better typography for a more human feel */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+  }
+  
+  /* Subtle shadows for depth */
+  .card-shadow {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  }
+  
+  .card-shadow-lg {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+}
